@@ -1,0 +1,6 @@
+
+train: /Users/apple/Downloads/codeit/project/ai06-level1-project/yolo_dataset/images/train
+val: /Users/apple/Downloads/codeit/project/ai06-level1-project/yolo_dataset/images/val
+
+names:
+  0: pill

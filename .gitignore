@@ -1,0 +1,37 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# Dataset folders (GitHub에 올리지 않기)
+train_images/
+val_images/
+test_images/
+yolo_dataset/
+datasets/
+labels/
+train_labels/
+
+# Ultralytics runs output
+runs/
+
+# YOLO & 모델 가중치
+*.pt
+*.pth
+*.weights
+
+# 이미지 캐시 파일 (YOLO가 자동 생성)
+*.cache
+
+# Virtual environment
+env/
+venv/
+.venv/
+
+# macOS 자동 파일
+.DS_Store
