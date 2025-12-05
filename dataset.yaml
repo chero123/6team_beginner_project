@@ -1,6 +1,5 @@
 
-train: /Users/apple/Downloads/codeit/project/ai06-level1-project/yolo_dataset/images/train
-val: /Users/apple/Downloads/codeit/project/ai06-level1-project/yolo_dataset/images/val
-
-names:
-  0: pill
+train: ./yolo_dataset/images/train
+val: ./yolo_dataset/images/train
+nc: 56
+names: [1899, 2482, 3350, 3482, 3543, 3742, 3831, 4542, 12080, 12246, 12777, 13394, 13899, 16231, 16261, 16547, 16550, 16687, 18146, 18356, 19231, 19551, 19606, 19860, 20013, 20237, 20876, 21324, 21770, 22073, 22346, 22361, 24849, 25366, 25437, 25468, 27732, 27776, 27925, 27992, 28762, 29344, 29450, 29666, 30307, 31862, 31884, 32309, 33008, 33207, 33879, 34596, 35205, 36636, 38161, 41767]
