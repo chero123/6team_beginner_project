@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+
+# BIG DATA FOLDERS (업로드 금지)
+train_images/
+test_images/
+train_annotations/
+
+# MODEL WEIGHTS (업로드 금지)
+*.pt
+*.pth
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/

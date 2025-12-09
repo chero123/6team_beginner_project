@@ -1,0 +1,10 @@
+train: /Users/apple/Downloads/프로젝트1/ai06-level1-project/yolo_dataset/images/train
+val: /Users/apple/Downloads/프로젝트1/ai06-level1-project/yolo_dataset/images/val
+
+nc: 56
+names: [pill_0, pill_1, pill_2, pill_3, pill_4, pill_5, pill_6, pill_7, pill_8, pill_9,
+        pill_10, pill_11, pill_12, pill_13, pill_14, pill_15, pill_16, pill_17, pill_18, pill_19,
+        pill_20, pill_21, pill_22, pill_23, pill_24, pill_25, pill_26, pill_27, pill_28, pill_29,
+        pill_30, pill_31, pill_32, pill_33, pill_34, pill_35, pill_36, pill_37, pill_38, pill_39,
+        pill_40, pill_41, pill_42, pill_43, pill_44, pill_45, pill_46, pill_47, pill_48, pill_49,
+        pill_50, pill_51, pill_52, pill_53, pill_54, pill_55]
