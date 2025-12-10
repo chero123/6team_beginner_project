@@ -1,5 +1,8 @@
-train: /Users/apple/Downloads/프로젝트1/ai06-level1-project/yolo_dataset/images/train
-val: /Users/apple/Downloads/프로젝트1/ai06-level1-project/yolo_dataset/images/val
+path: ./yolo_dataset   # 프로젝트 루트에서 yolo_dataset 폴더
+
+train: images/train    # => ./yolo_dataset/images/train
+val: images/val        # => ./yolo_dataset/images/val
+# test: images/test    # 테스트셋 있으면 이렇게 추가
 
 nc: 56
 names: [pill_0, pill_1, pill_2, pill_3, pill_4, pill_5, pill_6, pill_7, pill_8, pill_9,

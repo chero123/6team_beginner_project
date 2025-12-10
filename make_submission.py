@@ -7,12 +7,12 @@ from ultralytics import YOLO
 # -----------------------------
 # 0. 경로 및 기본 설정
 # -----------------------------
-ROOT = "/Users/apple/Downloads/프로젝트1/ai06-level1-project"
-TEST_DIR = os.path.join(ROOT, "test_images")
-MODEL_PATH = os.path.join(ROOT, "runs/detect/train3/weights/best.pt")
+ROOT = r"C:\Users\sangj\workspace\6team_beginner_project"
+TEST_DIR = os.path.join(ROOT, "data_ai06", "test_images")
+MODEL_PATH = os.path.join(ROOT, "runs", "detect", "train5_ft3", "weights", "best.pt")
 CAT_MAP_PATH = os.path.join(ROOT, "category_id_mapping.json")
 
-CONF_THRES = 0.1  # 필요하면 0.05 ~ 0.3 사이에서 조정 가능
+CONF_THRES = 0.05  # 필요하면 0.05 ~ 0.3 사이에서 조정 가능
 
 # -----------------------------
 # 1. category_id 매핑 복원
@@ -120,7 +120,7 @@ df = pd.DataFrame(rows, columns=[
     "score",
 ])
 
-output_path = os.path.join(ROOT, "submission.csv")
+output_path = os.path.join(ROOT, "submission_train5_ft3_conf_005.csv")
 df.to_csv(output_path, index=False)
-print("🎉 submission.csv 생성 완료 →", output_path)
+print("🎉 submission_train5_ft3_conf_005.csv 생성 완료 →", output_path)
 print("총 row 수:", len(df))
