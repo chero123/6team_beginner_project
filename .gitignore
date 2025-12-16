@@ -13,12 +13,19 @@ train_images/
 val_images/
 test_images/
 yolo_dataset/
+yolo_dataset_aihub+orig/
+yolo_dataset_merged/
 datasets/
 labels/
 train_labels/
 
 # Ultralytics runs output
 runs/
+pill_yolo_improved*/
+
+# Kaggle submission files
+kaggle_submission_*.csv
+training_summary_*.csv
 
 # YOLO & 모델 가중치
 *.pt
