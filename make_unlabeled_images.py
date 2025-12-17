@@ -1,3 +1,5 @@
+#라벨이 없는 이미지들만 골라서 따로 모아주는 코드
+
 import os
 import shutil
 

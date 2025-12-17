@@ -1,3 +1,5 @@
+# unlabeled_images 를 불러와서 모델이 예측하고 예측 못했다면 박스를 직접 그려 클래스 매핑해주는 코드
+
 import os
 from pathlib import Path
 
@@ -11,7 +13,7 @@ from ultralytics import YOLO
 # ---------------------------------------------
 BASE_DIR = Path(r"C:\Users\sangj\workspace\6team_beginner_project")
 
-MODEL_PATH = BASE_DIR / r"runs\detect\train5\weights\best.pt"
+MODEL_PATH = BASE_DIR / r"runs\detect\train12\weights\best.pt"
 UNLABELED_IMG_DIR = BASE_DIR / "unlabeled_images"   # 라벨 없는 이미지 폴더
 SAVE_LABEL_DIR = BASE_DIR / "self_labels"           # 라벨 저장 폴더 (YOLO txt)
 os.makedirs(SAVE_LABEL_DIR, exist_ok=True)
@@ -119,7 +121,6 @@ for i, (box, cls_id, conf) in enumerate(zip(pred_xyxy, pred_clses, pred_confs)):
     cls_num = st.number_input(
         "클래스 번호 (YOLO 예측 수정 가능)",
         min_value=0,
-        max_value=NUM_CLASSES - 1,
         value=default_cls,
         step=1,
         key=f"yolo_cls_{idx}_{i}",
@@ -196,7 +197,6 @@ for j, (x1d, y1d, x2d, y2d) in enumerate(manual_boxes_disp):
     cls_num = st.number_input(
         "클래스 번호 (수동 박스)",
         min_value=0,
-        max_value=NUM_CLASSES - 1,
         value=default_cls,
         step=1,
         key=f"manual_cls_{idx}_{j}",

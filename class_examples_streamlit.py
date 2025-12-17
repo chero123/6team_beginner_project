@@ -1,5 +1,8 @@
+#저장된 학습 데이터를 클래스별로 시각화해서 보는 streamlit
+
 import os
 from pathlib import Path
+
 import cv2
 import streamlit as st
 from ultralytics import YOLO
@@ -9,7 +12,7 @@ from ultralytics import YOLO
 # -----------------------------
 BASE_DIR = Path(r"C:\Users\sangj\workspace\6team_beginner_project")
 
-YOLO_ROOT = BASE_DIR / "yolo_dataset"
+YOLO_ROOT = BASE_DIR / "yolo_dataset_aihub+orig(4img)"
 IMG_DIRS = [
     YOLO_ROOT / "images" / "train",
     YOLO_ROOT / "images" / "val",
@@ -19,7 +22,7 @@ LABEL_DIRS = [
     YOLO_ROOT / "labels" / "val",
 ]
 
-MODEL_PATH = BASE_DIR / r"runs\detect\train5\weights\best.pt"
+MODEL_PATH = BASE_DIR / r"runs\detect\train17\weights\best.pt"
 IMG_EXTS = [".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG"]
 EXAMPLES_PER_CLASS = 4
 
@@ -27,7 +30,7 @@ EXAMPLES_PER_CLASS = 4
 # 1. 모델 class 이름 불러오기
 # -----------------------------
 model = YOLO(str(MODEL_PATH))
-CLASS_NAMES = model.names
+CLASS_NAMES = model.names  # dict: {0:'pill_0', ...} or list
 NUM_CLASSES = len(CLASS_NAMES)
 
 # -----------------------------
@@ -134,7 +137,7 @@ st.title("💊 YOLO Class Example Viewer (GT 기반 학습 데이터 시각화)"
 # 전체 클래스 출력
 for class_id in range(NUM_CLASSES):
     total_boxes = class_count[class_id]
-    
+
     st.markdown(
         f"## 🏷 Class {class_id} — {CLASS_NAMES[class_id]} (**{total_boxes}개**)"
     )

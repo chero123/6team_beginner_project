@@ -5,16 +5,45 @@
 __pycache__/
 *.pyc
 
+# ===============================
 # BIG DATA FOLDERS (업로드 금지)
+# ===============================
 train_images/
 test_images/
 train_annotations/
 
+# AI-Hub / Project datasets
+aihub_data_json/
+aihub_data/
+aihub_filtered_all/
+aihub_filtered_for_my_model_all/
+data_ai06/
+
+# YOLO datasets (generated)
+yolo_dataset/
+yolo_dataset_aihub+orig/
+yolo_dataset_aihub+orig_resplit_stratified/
+yolo_dataset_aihub+orig(4img)/
+
+# Cropped / augmented datasets
+cropped_add/
+cropped_add_minor30_v2/
+cropped_add_targets50_raw_v1/
+cropped_add_full_raw_v1/
+
+# Training outputs
+runs/
+
+# ===============================
 # MODEL WEIGHTS (업로드 금지)
+# ===============================
 *.pt
 *.pth
+*.onnx
 
-# Logs
+# ===============================
+# Logs / cache
+# ===============================
 *.log
 
 # Jupyter
