@@ -1,24 +1,55 @@
-# Python cache
-__pycache__/
-*.pyc
-
-# Virtual environment
-.venv/
-env/
-
-# Large data files
+# ========================
+# Raw data (절대 업로드 금지)
+# ========================
 data/
-yolo_dataset/
-runs_cv/
-runs_full/
-results/submission/
+work/
+project_ver3/work/
+project_ver3/data/
 
-# Model weights
+# ========================
+# Image files (원천/결과 이미지)
+# ========================
+*.png
+*.jpg
+*.jpeg
+*.bmp
+
+# 단, README나 코드에 필요한 작은 예시는 직접 whitelist 가능
+
+# ========================
+# YOLO outputs / weights
+# ========================
+runs/
 *.pt
+*.onnx
 *.pth
 
-# Jupyter checkpoints
+# ========================
+# Cache / temp
+# ========================
+*.cache
+__pycache__/
+*.pyc
 .ipynb_checkpoints/
 
-# OS files
+# ========================
+# OS / editor
+# ========================
 .DS_Store
+Thumbs.db
+
+# ========================
+# Logs
+# ========================
+*.log
+
+# ========================
+# Local env
+# ========================
+.env
+
+# ========================
+# Output / visualization
+# ========================
+output/
+project_ver3/output/
