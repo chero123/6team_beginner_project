@@ -1,0 +1,24 @@
+from ultralytics import YOLO
+
+PROJECT_ROOT = "/home/ohs3201/6team_beginner_project/project_ver4"
+DATA_YAML = f"{PROJECT_ROOT}/work/yolo/data.yaml"
+MODEL = f"{PROJECT_ROOT}/runs/detect/ver4_finetune_1024_unfreeze/weights/best.pt"
+
+model = YOLO(MODEL)
+
+model.train(
+    data=DATA_YAML,
+    imgsz=1152,
+    epochs=12,
+    batch=6,
+    device=0,
+    lr0=0.0007,
+    optimizer="SGD",
+    mosaic=0.0,
+    close_mosaic=0,
+    mixup=0.0,
+    copy_paste=0.0,
+    patience=6,
+    workers=8,
+    name="ver4_finetune_1152_final",
+)

@@ -6,8 +6,6 @@
 > - JSON / YOLO txt 혼합 데이터 → dl_idx 기준 통합  
 > - 증강 데이터는 train 전용, val에는 절대 포함하지 않음
 
----
-
 ## 프로젝트 구조 (project_ver3)
 
 project_ver3/
@@ -181,3 +179,147 @@ conf=0.6 이상으로 설정(애매하게 잘못 예측한 것 안나오게)
 cls 기반 파이프라인은 서로 다른 dl_idx를 하나로 묶는 치명적 문제 발생
 dl_idx 단일 기준 + 증강 분리 + 고해상도 파인튜닝이 가장 안정적
 초기 mAP이 높은 경우 → 데이터 중복 / val 누수 반드시 점검
+
+---
+
+## Project_ver4 – 정석 YOLO 파이프라인 (SAFE COCO 구조)
+### 프로젝트 개요
+project_ver4 프로젝트는 기존 project_ver3에서 발견된 구조적 위험 요소를 제거하고, COCO → YOLO 정석 구조에 맞게 파이프라인을 재설계한 버전입니다.
+
+### 구조적 반성 & 개선점 (project_ver3 → project_ver4)
+
+문제 요약
+- project_ver3 초기 파이프라인에서는 COCO/YOLO의 “정석 구조(1 이미지 = 1 image_id, 그 이미지의 모든 객체를 한 라벨 파일에 포함)” 원칙이 흔들릴 수 있는 위험이 있었습니다.
+- 특히 라벨 JSON이 ‘약(클래스) 단위로 분리되어 저장’된 데이터 특성 때문에, JSON 단위로 이미지를 등록하면 동일한 픽셀 이미지가 여러 image_id로 분리될 수 있고, 이후 YOLO 변환 단계에서 file_name 기반 라벨(txt) 작성 시 덮어쓰기/소실 문제가 발생할 가능성이 있었습니다. 
+- 또한 oversampling(복사 기반 증강)을 수행할 경우, 구조적 오류가 존재하면 그 오류가 반복/증폭될 위험이 있었습니다.
+
+> 목표  
+> - COCO 철학(1 image = 모든 객체)을 지키는 정석 데이터 구조
+> - dl_idx 기반 클래스 일관성 유지
+> - Kaggle 점수뿐 아니라 재현성·안정성·확장성까지 확보
+
+### 핵심 원칙
+
+- 1 image = 1 image_id
+- 한 이미지에 존재하는 모든 객체(annotation)는 하나의 image_id에 병합
+- dl_idx → train_id 매핑은 전역에서 단 1회만 생성
+- JSON 기준으로 이미지를 쪼개지 않음
+- file_name 기준 라벨 덮어쓰기 구조 제거
+
+## ver3 vs ver4 구조 비교 (핵심 차이)
+### project_ver3 (위험 구조)
+같은 PNG 이미지
+
+├─ JSON A → image_id 1 → bbox 1개
+
+├─ JSON B → image_id 2 → bbox 1개
+
+├─ JSON C → image_id 3 → bbox 1개
+
+
+문제점
+- 같은 픽셀 이미지가 여러 image_id로 학습됨
+- “한 이미지에 여러 객체가 동시에 존재한다”는 현실 구조를 학습 못 함
+- YOLO 변환 시 file_name 기준 라벨 덮어쓰기 가능
+- oversampling 시 오류 구조가 증폭될 위험
+- Kaggle 점수는 나올 수 있으나, 구조적으로 매우 위험
+
+### project_ver4 (정석 구조)
+같은 PNG 이미지
+
+└─ image_id 1
+
+├─ bbox 1 (dl_idx A)
+
+├─ bbox 2 (dl_idx B)
+
+├─ bbox 3 (dl_idx C)
+
+개선점
+- COCO 철학 완전 준수
+- 모든 annotation이 정확히 병합
+- YOLO 변환 시 덮어쓰기/소실 불가
+- 증강/통계/분할 단계에서 구조 안정성 확보
+
+## 전체 파이프라인 단계 (ver4)
+
+### STEP 01 – 클래스 매핑 & COCO 생성 (SAFE)
+```bash
+# dl_idx → train_id 매핑 (annotation 기준 포함)
+python file_py/step01_1_make_dlidx_mapping_SAFE_FINAL.py
+
+# file_name 기준 이미지 병합 COCO 생성
+python file_py/step01_2_make_coco_SAFE_FINAL.py
+```
+
+### STEP 02 – COCO → YOLO 변환 (SAFE)
+```bash
+python file_py/step02_coco_to_yolo_SAFE.py
+```
+- 동일 file_name에 대해 라벨 덮어쓰기 없음
+- image_id 기준 정확안 bbox 생성
+
+### STEP 03 – 통계 & 희소 클래스 증강
+```bash
+# YOLO 클래스 분포 분석
+python file_py/step03_1_yolo_class_stats.py
+
+# 희소 클래스 증강 (albumentations)
+python file_py/step03_2_augment_rare_classes.py
+
+# 원본 + 증강 pool 병합
+python file_py/step03_3_merge_augmented_pool.py
+```
+### STEP 03-4 – Train / Val Split (aug 제외 val)
+```bash
+python file_py/step03_4_make_train_val_split_noaugval.py
+```
+- val에는 증강 이미지 절대 포함 안 함
+- Data leakage 방지
+
+### STEP 04 – 학습 준비 & 베이스라인 학습
+```bash
+# data.yaml 생성
+python file_py/step04_0_make_data_yaml.py
+
+# sanity check (bbox / cls / 누락 검증)
+python file_py/step04_1_sanity_check_yolo.py
+
+# YOLOv8 baseline 학습
+python file_py/step04_2_train_yolo.py
+```
+
+### STEP 05 – 파인튜닝 (ver3 기준 계승)
+```bash
+# 1) Backbone freeze
+python file_py/step05_1_finetune_freeze.py
+
+# 2) Unfreeze fine-tune
+python file_py/step05_2_finetune_unfreeze.py
+
+# 3) High-res (1152) fine-tune
+python file_py/step05_3_finetune_1152.py
+
+# 4) Noise adaptation (현실 환경 대응)
+python file_py/step05_4_noise_adapt.py
+```
+
+### STEP 06 – 추론 & Kaggle 제출
+```bash
+# 테스트 이미지 시각화
+python file_py/step06_1_predict_and_visualize.py
+
+# Kaggle 제출 CSV 생성
+python file_py/step06_2_make_submit_csv.py
+```
+제출 규칙
+- image_id = 테스트 이미지 파일명 (확장자 제거)
+- annotation_id = 순차 증가
+- category_id = dl_idx
+- 이미지당 최대 3~4 bbox 제한
+- conf threshold 적용 (예: 0.6)
+
+## 구조적 반성 & 개선점
+- project_ver3에서는 Json 단위로 image_id를 생성하면서 같은 이미지가 여러 학습 샘플로 분리되는 구조적 문제가 존재했습니다.
+- 이로 인해 COCO 철학(1 image = 모든 객체)이 깨졌고, YOLO 변화 단계에서 라벨 덮어쓰기 및 annotation 소실 가능성이 생겼습니다.
+- project_ver4에서는 file_name 기준으로 이미지를 병합하여 supervision 구조를 복원하였고, 장기적으로 재사용, 확장 가능한 파이프라인으로 개선하였습니다.
