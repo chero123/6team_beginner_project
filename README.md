@@ -11,39 +11,74 @@
 ## 프로젝트 구조 (project_ver3)
 
 project_ver3/
+
 ├── file_py/ # STEP별 실행 스크립트
+
 │ ├── step01-1_make_dlidx_mapping.py
+
 │ ├── step01-2_make_coco_from_dlidx.py
+
 │ ├── step02_coco_to_yolo_symlink.py
+
 │ ├── step03-1_yolo_class_stats.py
+
 │ ├── step03-2_augment_rare_classes.py
+
 │ ├── step03-3_merge_augmented.py
+
 │ ├── step03-4_make_train_val_split.py
+
 │ ├── step04-1_sanity_check_yolo.py
+
 │ ├── step04-2_make_data_yaml.py
+
 │ ├── step04-3_train_yolo.py
+
 │ ├── step05-1_finetune_freeze.py
+
 │ ├── step05-2_finetune_unfreeze.py
+
 │ ├── step05-3_finetune_1152.py
+
 │ ├── step05-4_noise_adapt.py
+
 │ ├── step06-1_predict_and_visualize.py
+
 │ └── step06-2_make_submit_csv.py
+
 │
+
 ├── mappings/
+
 │ ├── dlidx_to_trainid.json
+
 │ └── trainid_to_dlidx.json
+
 │
+
 ├── coco/
+
+
 │ └── train_coco_dlidx.json
+
 │
+
 ├── work/
+
 │ └── yolo/
+
 │ ├── images/ (all / aug / train / val)
+
 │ ├── labels/ (all / aug / train / val)
+
 │ └── data.yaml
+
 │
+
 ├── runs/ # 학습 결과 (git 미포함)
+
 ├── .gitignore
+
 └── README.md
 
 ## STEP 01 – dl_idx 매핑 생성
