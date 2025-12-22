@@ -246,10 +246,10 @@ project_ver4 프로젝트는 기존 project_ver3에서 발견된 구조적 위�
 ### STEP 01 – 클래스 매핑 & COCO 생성 (SAFE)
 ```bash
 # dl_idx → train_id 매핑 (annotation 기준 포함)
-python file_py/step01_1_make_dlidx_mapping_SAFE_FINAL.py
+python step01-1_make_dlidx_mapping_FIXED118.py
 
 # file_name 기준 이미지 병합 COCO 생성
-python file_py/step01_2_make_coco_SAFE_FINAL.py
+python step01-2_make_coco_SAFE_FIXED118.py
 ```
 
 ### STEP 02 – COCO → YOLO 변환 (SAFE)

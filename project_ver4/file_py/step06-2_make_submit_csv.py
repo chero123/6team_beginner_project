@@ -16,7 +16,7 @@ MAP_T2DL = os.path.join(PROJECT_ROOT, "mappings", "trainid_to_dlidx.json")
 SUBMIT_CSV = os.path.join(OUT_DIR, "submission.csv")
 
 IMGSZ = 1152
-CONF = 0.25
+CONF = 0.6
 IOU = 0.7
 MAX_DET_PER_IMG = 4
 
