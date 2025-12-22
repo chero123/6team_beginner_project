@@ -323,3 +323,6 @@ python file_py/step06_2_make_submit_csv.py
 - project_ver3에서는 Json 단위로 image_id를 생성하면서 같은 이미지가 여러 학습 샘플로 분리되는 구조적 문제가 존재했습니다.
 - 이로 인해 COCO 철학(1 image = 모든 객체)이 깨졌고, YOLO 변화 단계에서 라벨 덮어쓰기 및 annotation 소실 가능성이 생겼습니다.
 - project_ver4에서는 file_name 기준으로 이미지를 병합하여 supervision 구조를 복원하였고, 장기적으로 재사용, 확장 가능한 파이프라인으로 개선하였습니다.
+
+## 협업 일지 및 보고서
+https://blog.naver.com/ohs3201
