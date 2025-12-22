@@ -1,3 +1,5 @@
+보고서 : https://github.com/chero123/6team_beginner_project/blob/main/%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf
+
 이 프로젝트는 알약 객체 탐지(Object Detection)를 목표로 하며, dl_idx를 유일한 클래스 기준으로 사용하는 YOLOv8 파이프라인입니다.
 
 > 핵심 원칙  
