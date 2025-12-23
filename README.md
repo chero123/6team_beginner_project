@@ -328,3 +328,4 @@ python file_py/step06_2_make_submit_csv.py
 
 ## 협업 일지 및 보고서
 https://blog.naver.com/ohs3201
+https://www.notion.so/2025-12-08-2025-12-22-2d26d27ac2f8800b827ff3b8a628f2e2?source=copy_link - 한경섭
