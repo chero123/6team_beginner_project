@@ -1,4 +1,5 @@
 보고서 : https://github.com/chero123/6team_beginner_project/blob/main/%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf
+발표자료 : https://github.com/chero123/6team_beginner_project/blob/main/%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf
 
 박상진 협업일지 : https://www.notion.so/AI_6-_6-_-_-_-2c06e40441d08078973eee44f1369e9a?source=copy_link
 
